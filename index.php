@@ -17,6 +17,7 @@ include 'interface.php';
 <body>
 
     <?php
+    // Constructor
     echo "<h2>Person info | Constructor</h2>";
     $client1 = new Delivery("Jhon", "dev@info.com", "Keyboard");
     echo $client1->name . "<br>";
@@ -25,6 +26,7 @@ include 'interface.php';
 
     echo "<br><br>";
 
+    // Method for insert
     echo "<h2>Person info | Method for insert</h2>";
     $client1->setName("Tommy");
     echo $client1->name . "<br>";
@@ -35,6 +37,7 @@ include 'interface.php';
 
     echo "<br><br>";
 
+    // Inherit to change name
     echo "<h2>Person info | Inherit to change name</h2>";
     $client1->changeName("Robert");
     echo $client1->name . "<br>";
@@ -43,21 +46,37 @@ include 'interface.php';
 
     echo "<br><br>";
 
+    // Static function
     echo "<h2>Delivery details | Static function</h2>";
     echo Delivery::$estiDate . "<br>";
     echo $client1->deliveryDate() . "<br>";
 
     echo "<br><br>";
 
+    // Abstract Method
     echo "<h2>Duration of delivery | Abstract Method</h2>";
     echo $client1->getDelivery() . "<br>";
 
     echo "<br><br>";
 
+    // Interfaces
     echo "<h2>Method for payment chosen | Interface</h2>";
-    $paymentType = new Visa(); // <-- by changing of new Visa() to new Paypal() the method of paying will change
-    $buyProduct = new BuyProduct();
-    echo $buyProduct->pay($paymentType);
+
+    echo '<form action="" method="post">
+            <button name="pay" value="Paypal">Paypal</button>
+        </form>';
+    echo '<form action="" method="post">
+            <button name="pay" value="Visa">Visa</button>
+        </form>';
+    echo '<form action="" method="post">
+            <button name="pay" value="Cash">Cash</button>
+        </form>';
+    if (empty(@htmlspecialchars($_POST["pay"])) == false) {
+        $chosenPay = @htmlspecialchars($_POST["pay"]);
+        $paymentType = new $chosenPay();
+        $buyProduct = new BuyProduct();
+        echo $buyProduct->pay($paymentType);
+    };
 
     ?>
 
