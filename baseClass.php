@@ -45,7 +45,7 @@ abstract class Client
     }
     abstract public function getDelivery();
 
-    // Constructor
+    // Destructor
     public function __destruct()
     {
     }
